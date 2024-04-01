@@ -2,6 +2,7 @@ package kr.hs.dsm.devlib.global.security.principle
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import kr.hs.dsm.devlib.domain.book.persistence.Book
 import kr.hs.dsm.devlib.domain.user.persistence.User
 
 class CustomDetailsImpl(

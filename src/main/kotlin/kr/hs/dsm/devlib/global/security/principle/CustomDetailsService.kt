@@ -1,5 +1,6 @@
 package kr.hs.dsm.devlib.global.security.principle
 
+import kr.hs.dsm.devlib.domain.book.persistence.repository.BookRepository
 import kr.hs.dsm.devlib.domain.user.persistence.repository.UserRepository
 import kr.hs.dsm.devlib.global.security.exception.InvalidTokenException
 import org.springframework.data.repository.findByIdOrNull

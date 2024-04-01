@@ -16,8 +16,7 @@ class JwtGenerator(
 ){
 
     fun receiveToken(userId: Long) = TokenResponse(
-        accessToken = generateAccessToken(userId),
-        accessTokenExpiredAt = LocalDateTime.now().withNano(0).plusSeconds(securityProperties.accessExp.toLong()),
+        accessToken = generateAccessToken(userId)
     )
 
     private fun generateAccessToken(userId: Long) =

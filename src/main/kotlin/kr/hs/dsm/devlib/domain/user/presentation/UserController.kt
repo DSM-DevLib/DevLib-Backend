@@ -2,9 +2,6 @@ package kr.hs.dsm.devlib.domain.user.presentation
 
 import javax.validation.Valid
 import kr.hs.dsm.devlib.common.dto.TokenResponse
-import kr.hs.dsm.devlib.domain.question.presentation.dto.QuestionSetListResponse
-import kr.hs.dsm.devlib.domain.question.presentation.dto.UserQuestionListResponse
-import kr.hs.dsm.devlib.domain.question.presentation.dto.UserQuestionResponse
 import kr.hs.dsm.devlib.domain.user.presentation.dto.*
 import kr.hs.dsm.devlib.domain.user.service.UserService
 import org.springframework.http.HttpStatus
@@ -18,20 +15,15 @@ class UserController(
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    fun userSignUp(@Valid @RequestBody request: UserSignUpRequest) {
+    fun userSignUp(@Valid @RequestBody request: UserRequest) {
         userService.signUp(request)
     }
 
     @PostMapping("/auth")
-    fun userSignIn(@Valid @RequestBody request: UserSignInRequest): TokenResponse =
+    fun userSignIn(@Valid @RequestBody request: UserRequest): TokenResponse =
         userService.signIn(request)
 
-    @GetMapping("/profile")
+    @GetMapping
     fun queryUserInfo(): UserInfoResponse =
         userService.queryUserInfo()
-
-    @PutMapping("/profile")
-    fun updateUserInfo(@Valid @RequestBody request: UpdateUserInfoRequest) {
-        userService.updateUserInfo(request)
-    }
 }
