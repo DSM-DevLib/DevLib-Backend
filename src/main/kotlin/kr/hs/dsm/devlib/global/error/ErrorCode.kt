@@ -11,6 +11,7 @@ enum class DomainErrorCode(
 
     PASSWORD_MISMATCH(ErrorStatus.FORBIDDEN, "Password mismatched", 1),
     USER_NOT_FOUND(ErrorStatus.NOT_FOUND, "User Not Found", 1),
+    BOOK_NOT_FOUND(ErrorStatus.NOT_FOUND, "Book Not Found", 2),
     ALREADY_USER_EXIST(ErrorStatus.CONFLICT, "Already User Exist", 1)
     ;
 

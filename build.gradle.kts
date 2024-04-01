@@ -39,6 +39,10 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:5.0.0")
     kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4")
+    implementation("org.jsoup:jsoup:1.14.3")
 }
 
 allOpen {
