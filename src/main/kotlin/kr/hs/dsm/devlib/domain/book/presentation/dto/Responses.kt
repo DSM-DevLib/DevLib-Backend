@@ -15,7 +15,9 @@ class BookRankResponse(
     val id: Long,
     val name: String,
     val author: String,
-    val cover: String
+    val cover: String,
+    val score: Double,
+    val reviewCount: Int
 )
 class BookRanksResponse(val books: List<BookRankResponse>)
 

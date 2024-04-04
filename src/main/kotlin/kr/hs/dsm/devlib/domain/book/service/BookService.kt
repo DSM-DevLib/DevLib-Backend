@@ -1,17 +1,26 @@
 package kr.hs.dsm.devlib.domain.book.service
 
+import com.querydsl.core.types.dsl.Expressions
+import com.querydsl.jpa.impl.JPAQueryFactory
 import kr.hs.dsm.devlib.domain.book.exception.BookNotFoundException
+import kr.hs.dsm.devlib.domain.book.persistence.QBook.book
+import kr.hs.dsm.devlib.domain.book.persistence.QReview.review
 import kr.hs.dsm.devlib.domain.book.persistence.repository.BookRepository
 import kr.hs.dsm.devlib.domain.book.persistence.repository.ReviewRepository
 import kr.hs.dsm.devlib.domain.book.presentation.dto.BookDetailResponse
+import kr.hs.dsm.devlib.domain.book.presentation.dto.BookRankResponse
+import kr.hs.dsm.devlib.domain.book.presentation.dto.BookRanksResponse
 import kr.hs.dsm.devlib.domain.book.presentation.dto.BookResponse
+import kr.hs.dsm.devlib.domain.book.persistence.repository.BookReviewCountDTO
+import kr.hs.dsm.devlib.domain.book.persistence.repository.QBookReviewAvgDTO
+import kr.hs.dsm.devlib.domain.book.persistence.repository.QBookReviewCountDTO
 import kr.hs.dsm.devlib.domain.book.presentation.dto.BooksResponse
-import org.jsoup.Jsoup
+import kr.hs.dsm.devlib.domain.book.presentation.dto.RankType
 import kr.hs.dsm.devlib.global.feign.BookClient
+import org.jsoup.Jsoup
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
+
 
 @Service
 class BookService(
@@ -19,13 +28,37 @@ class BookService(
     val bookRepository: BookRepository,
     val reviewRepository: ReviewRepository
 ) {
-    fun queryBook(): BooksResponse {
-        val books = bookClient.getBooks().toBooks()
-        bookRepository.saveAll(books)
+    fun queryBook(name: String?): BooksResponse {
+        val books = (name?.let { bookClient.getBooks(name = name) } ?: bookClient.getBooks())
+            .toBooks()
+            .also { bookRepository.saveAll(it) }
         val reviews = reviewRepository.findByBookIdIn(books.map { it.id }).groupBy { it.book.id }
         return BooksResponse(
             books = books.map {
                 BookResponse(
+                    id = it.id,
+                    name = it.name,
+                    author = it.author,
+                    cover = it.cover,
+                    score = reviews[it.id]?.map { it.score }?.average() ?: 0.0,
+                    reviewCount = reviews[it.id]?.size ?: 0,
+                )
+            }
+        )
+    }
+
+    fun queryBookRank(type: RankType): BookRanksResponse {
+
+        val books = when (type) {
+            RankType.VIEW -> bookRepository.findTop20OrderByViewCount()
+            RankType.REVIEW -> bookRepository.findTop20OrderByReviewCount()
+            RankType.SCORE -> bookRepository.findTop20OrderByReviewScore()
+        }
+        val reviews = reviewRepository.findByBookIdIn(books.map { it.id }).groupBy { it.book.id }
+        return BookRanksResponse(
+            books = books.mapIndexed { idx, it ->
+                BookRankResponse(
+                    rank = idx + 1,
                     id = it.id,
                     name = it.name,
                     author = it.author,
