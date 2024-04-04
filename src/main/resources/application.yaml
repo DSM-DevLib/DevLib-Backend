@@ -27,3 +27,7 @@ spring:
 secret:
   secret-key: ${SECRET_KEY:asdfghgfds}
   access-exp: ${ACCESS_EXP:1800000}
+
+feign:
+  access-key: ${BOOK_API_ACCESS_KEY:asd}
+  secret-key: ${BOOK_API_SECRET_KEY:asdfghgfds}
