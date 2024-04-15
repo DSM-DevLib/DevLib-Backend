@@ -1,0 +1,6 @@
+config:
+  name: devlib
+  service_type: be
+  port: 8080
+  domain:
+    prod: devlib.xquare.app
