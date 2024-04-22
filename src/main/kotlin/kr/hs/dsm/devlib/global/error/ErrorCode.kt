@@ -12,7 +12,8 @@ enum class DomainErrorCode(
     PASSWORD_MISMATCH(ErrorStatus.FORBIDDEN, "Password mismatched", 1),
     USER_NOT_FOUND(ErrorStatus.NOT_FOUND, "User Not Found", 1),
     BOOK_NOT_FOUND(ErrorStatus.NOT_FOUND, "Book Not Found", 2),
-    ALREADY_USER_EXIST(ErrorStatus.CONFLICT, "Already User Exist", 1)
+    ALREADY_USER_EXIST(ErrorStatus.CONFLICT, "Already User Exist", 1),
+    QUESTION_NOT_FOUND(ErrorStatus.NOT_FOUND, "Question Not Found", 3),
     ;
 
     override fun status(): Int = status
@@ -31,7 +32,9 @@ enum class SecurityErrorCode(
     UNEXPECTED_TOKEN(ErrorStatus.UNAUTHORIZED, "Unexpected token", 3),
     INVALID_ROLE(ErrorStatus.UNAUTHORIZED, "Invalid role", 4),
 
-    FORBIDDEN(ErrorStatus.FORBIDDEN, "Can not access", 1);
+    FORBIDDEN(ErrorStatus.FORBIDDEN, "Can not access", 1),
+    NO_PERMISSION(ErrorStatus.FORBIDDEN, "No Permission", 2);
+
 
     override fun status(): Int = status
     override fun message(): String = message
