@@ -15,7 +15,7 @@ spring:
       format_sql: true
       generate-ddl: false
     defer-datasource-initialization: true
-    show-sql: true
+    show-sql: false
   jackson:
     property-naming-strategy: SNAKE_CASE
 
