@@ -35,3 +35,5 @@ jobs:
           buildargs: |
             MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }}
             MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
+            BOOK_API_ACCESS_KEY=${{ secrets.BOOK_API_ACCESS_KEY }}
+            BOOK_API_SECRET_KEY=${{ secrets.BOOK_API_SECRET_KEY }}
