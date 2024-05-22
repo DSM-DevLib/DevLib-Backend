@@ -15,12 +15,11 @@ import javax.persistence.Table
 @Table(name = "tbl_bookmark")
 @Entity
 data class Bookmark(
-    @MapsId("bookId")
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", columnDefinition = "BIGINT", nullable = false)
     var book: Book,
-
-    @MapsId("userId")
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", columnDefinition = "BIGINT", nullable = false)
     var user: User,
