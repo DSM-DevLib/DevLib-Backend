@@ -2,6 +2,7 @@ package kr.hs.dsm.devlib.domain.book.service
 
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.impl.JPAQueryFactory
+import kr.hs.dsm.devlib.common.util.SecurityUtil
 import kr.hs.dsm.devlib.domain.book.exception.BookNotFoundException
 import kr.hs.dsm.devlib.domain.book.persistence.QBook.book
 import kr.hs.dsm.devlib.domain.book.persistence.QReview.review
@@ -16,6 +17,7 @@ import kr.hs.dsm.devlib.domain.book.persistence.repository.QBookReviewAvgDTO
 import kr.hs.dsm.devlib.domain.book.persistence.repository.QBookReviewCountDTO
 import kr.hs.dsm.devlib.domain.book.presentation.dto.BooksResponse
 import kr.hs.dsm.devlib.domain.book.presentation.dto.RankType
+import kr.hs.dsm.devlib.domain.bookmark.persistence.repository.BookmarkRepository
 import kr.hs.dsm.devlib.global.feign.BookClient
 import org.jsoup.Jsoup
 import org.springframework.data.repository.findByIdOrNull
@@ -26,7 +28,8 @@ import org.springframework.stereotype.Service
 class BookService(
     val bookClient: BookClient,
     val bookRepository: BookRepository,
-    val reviewRepository: ReviewRepository
+    val reviewRepository: ReviewRepository,
+    val bookmarkRepository: BookmarkRepository
 ) {
     fun queryBook(name: String?): BooksResponse {
         val books = (name?.let { bookClient.getBooks(name = name) } ?: bookClient.getBooks())
@@ -95,6 +98,8 @@ class BookService(
             )
         } else Triple(null, null, null)
 
+        val user = SecurityUtil.getCurrentUser()
+
         return book.run {
             BookDetailResponse(
                 id = id,
@@ -104,7 +109,8 @@ class BookService(
                 description = description,
                 price = price ?: discount,
                 purchaseSite = purchaseSite ?: "네이버도서",
-                purchaseUrl = purchaseUrl ?: link
+                purchaseUrl = purchaseUrl ?: link,
+                isMarked = bookmarkRepository.findByUserAndBook(user, book) != null
             )
         }
     }
