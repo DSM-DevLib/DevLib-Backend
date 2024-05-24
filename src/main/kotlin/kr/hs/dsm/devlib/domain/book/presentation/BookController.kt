@@ -24,4 +24,7 @@ class BookController(
     @GetMapping("/{book-id}")
     fun queryBookDetail(@PathVariable("book-id") bookId: Long) =
         bookService.queryBookDetail(bookId)
+
+    @GetMapping("/book/mark")
+    fun queryMarkedBooks() = bookService.queryMarkedBooks()
 }

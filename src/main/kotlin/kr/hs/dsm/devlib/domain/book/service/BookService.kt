@@ -114,4 +114,25 @@ class BookService(
             )
         }
     }
+
+    fun queryMarkedBooks(): BooksResponse {
+        val user = SecurityUtil.getCurrentUser()
+        val markedBookIds = bookmarkRepository.findAllByUser(user).map { it.book.id }
+        val books = bookRepository.findAllByIdIn(markedBookIds)
+
+        val bookResponses = books.map {
+            it -> BookResponse(
+            id = it.id,
+            name = it.name,
+            author = it.author,
+            cover = it.cover,
+            score = 0.0,
+            reviewCount = 0,
+            )
+        }
+
+        return BooksResponse(
+            bookResponses
+        )
+    }
 }

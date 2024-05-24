@@ -10,7 +10,9 @@ import kr.hs.dsm.devlib.domain.book.persistence.QReview.review
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
-interface BookRepository : CrudRepository<Book, Long>, CustomBookRepository
+interface BookRepository : CrudRepository<Book, Long>, CustomBookRepository {
+    fun findAllByIdIn(idList: List<Long>): List<Book>
+}
 
 interface CustomBookRepository {
     fun findTop20OrderByViewCount(): List<Book>

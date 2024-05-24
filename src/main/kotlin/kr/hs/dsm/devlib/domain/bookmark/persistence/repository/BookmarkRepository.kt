@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface BookmarkRepository : JpaRepository<Bookmark, Long> {
     fun findByUserAndBook(user: User, book: Book): Bookmark?
+    fun findAllByUser(user: User): List<Bookmark>
 }
