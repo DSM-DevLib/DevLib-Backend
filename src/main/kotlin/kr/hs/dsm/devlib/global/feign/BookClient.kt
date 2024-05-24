@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam
 const val COMMON: String = "프로그래머 코딩테스트 네트워크"
 const val BACKEND: String = "스프링부트 AWS 백엔드"
 const val FRONTEND: String = "Typescript 리액트 웹"
-const val IOS: String = "Swift 앱"
+const val IOS: String = "앱"
 const val ANDROID: String = "Kotlin 안드로이드"
 val ALL = arrayOf(COMMON, BACKEND, FRONTEND, IOS, ANDROID).joinToString(" ")
 
