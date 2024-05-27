@@ -4,8 +4,10 @@ import kr.hs.dsm.devlib.domain.question.presentation.dto.request.CreateQuestionR
 import kr.hs.dsm.devlib.domain.question.presentation.dto.request.UpdateQuestionRequest
 import kr.hs.dsm.devlib.domain.question.service.CreateQuestionService
 import kr.hs.dsm.devlib.domain.question.service.DeleteQuestionService
+import kr.hs.dsm.devlib.domain.question.service.QueryQuestionInfoService
 import kr.hs.dsm.devlib.domain.question.service.UpdateQuestionService
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,7 +21,8 @@ import javax.validation.Valid
 class QuestionController(
     private val createQuestionService: CreateQuestionService,
     private val deleteQuestionService: DeleteQuestionService,
-    private val updateQuestionService: UpdateQuestionService
+    private val updateQuestionService: UpdateQuestionService,
+    private val queryQuestionInfoService: QueryQuestionInfoService
 ) {
     @PostMapping
     fun createQuestion(@RequestBody @Valid request: CreateQuestionRequest) {
@@ -37,5 +40,10 @@ class QuestionController(
     @DeleteMapping("/{question-id}")
     fun deleteQuestion(@PathVariable("question-id") id: Long) {
         deleteQuestionService.execute(id)
+    }
+
+    @GetMapping("/{reply-id}")
+    fun queryQuestionInfo(@PathVariable("reply-id")replyId: Long) {
+        queryQuestionInfoService.execute(replyId)
     }
 }

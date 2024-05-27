@@ -1,5 +1,6 @@
 package kr.hs.dsm.devlib.domain.question.persistence
 
+import kr.hs.dsm.devlib.domain.reply.persistence.Reply
 import kr.hs.dsm.devlib.domain.user.persistence.User
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 
 @Entity
 class Question(
@@ -23,7 +25,10 @@ class Question(
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    val user: User
+    val user: User,
+
+    @OneToMany(mappedBy = "question")
+    val replys: List<Reply> = ArrayList()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

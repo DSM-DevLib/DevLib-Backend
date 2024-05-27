@@ -14,6 +14,7 @@ enum class DomainErrorCode(
     BOOK_NOT_FOUND(ErrorStatus.NOT_FOUND, "Book Not Found", 2),
     ALREADY_USER_EXIST(ErrorStatus.CONFLICT, "Already User Exist", 1),
     QUESTION_NOT_FOUND(ErrorStatus.NOT_FOUND, "Question Not Found", 3),
+    REPLY_NOT_FOUND(ErrorStatus.NOT_FOUND, "Reply Not Found", 4),
     ;
 
     override fun status(): Int = status
