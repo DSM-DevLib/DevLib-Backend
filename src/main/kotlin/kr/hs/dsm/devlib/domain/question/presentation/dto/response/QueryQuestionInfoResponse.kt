@@ -6,7 +6,8 @@ data class QueryQuestionInfoResponse(
     val title: String,
     val content: String,
     val author: String,
-    val replyList: List<ReplyDTO>
+    val replyList: List<ReplyDTO>,
+    val mine: Boolean
 )
 
 data class ReplyDTO(
@@ -14,5 +15,6 @@ data class ReplyDTO(
     val username: String,
     val likeCount: Int,
     val content: String,
-    val bookId: Long
+    val bookId: Long,
+    val mine: Boolean
 )
