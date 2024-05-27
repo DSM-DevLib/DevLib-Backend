@@ -16,7 +16,8 @@ class QueryQuestionListService(
             QuestionDTO(
                 title = it.title,
                 username = it.user.accountId,
-                createdDate = it.createdAt
+                createdDate = it.createdAt,
+                questionId = it.id
             )
         }
         return QueryQuestionListResponse(

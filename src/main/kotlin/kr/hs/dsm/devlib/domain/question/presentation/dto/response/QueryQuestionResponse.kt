@@ -7,6 +7,7 @@ data class QueryQuestionListResponse(
     val questions: List<QuestionDTO>
 )
 data class QuestionDTO(
+    val questionId: Long,
     val username: String,
     val title: String,
     val createdDate: LocalDateTime
