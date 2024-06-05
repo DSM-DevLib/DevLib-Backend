@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
+import org.springframework.web.bind.annotation.RequestParam
 
 @RestController
 @RequestMapping("/question")
@@ -47,12 +48,12 @@ class QuestionController(
     }
 
     @GetMapping("/{reply-id}")
-    fun queryQuestionInfo(@PathVariable("reply-id")replyId: Long): QueryQuestionInfoResponse {
+    fun queryQuestionInfo(@PathVariable("reply-id") replyId: Long): QueryQuestionInfoResponse {
         return queryQuestionInfoService.execute(replyId)
     }
 
     @GetMapping
-    fun questionQuestions(): QueryQuestionListResponse {
-        return queryQuestionListService.execute()
+    fun questionQuestions(@RequestParam("title", required = false) title: String?): QueryQuestionListResponse {
+        return queryQuestionListService.execute(title)
     }
 }

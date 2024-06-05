@@ -11,15 +11,17 @@ class QueryQuestionListService(
     private val questionRepository: QuestionRepository
 ) {
     @Transactional(readOnly = true)
-    fun execute(): QueryQuestionListResponse {
-        val questionDTOs = questionRepository.findAll().map {
-            QuestionDTO(
-                title = it.title,
-                username = it.user.accountId,
-                createdDate = it.createdAt,
-                questionId = it.id
-            )
-        }
+    fun execute(title: String?): QueryQuestionListResponse {
+        val questionDTOs = (title?.let { questionRepository.findByTitleContains(title) }
+            ?: questionRepository.findAll()).map {
+                QuestionDTO(
+                    title = it.title,
+                    username = it.user.accountId,
+                    createdDate = it.createdAt,
+                    questionId = it.id
+                )
+            }
+
         return QueryQuestionListResponse(
             questionDTOs
         )

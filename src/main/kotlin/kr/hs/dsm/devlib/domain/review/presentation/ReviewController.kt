@@ -27,7 +27,7 @@ class ReviewController(
         reviewService.update(reviewId, request)
     }
 
-    @GetMapping("/{book-id")
+    @GetMapping("/{book-id}")
     fun queryReviews(@PathVariable("book-id") bookId: Long): QueryReviewsResponse {
         return reviewService.queryReviews(bookId)
     }
