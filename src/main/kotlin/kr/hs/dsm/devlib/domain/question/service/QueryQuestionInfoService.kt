@@ -26,8 +26,9 @@ class QueryQuestionInfoService(
                 createdDate = it.createdAt,
                 likeCount = it.reactions.size,
                 mine = it.user == user,
-                imageUrl = it.book.link,
-                liked = it.reactions.any { like -> like.user == user }
+                imageUrl = it.book.cover,
+                liked = it.reactions.any { like -> like.user == user },
+                id = it.id
             )
         }
 
