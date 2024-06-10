@@ -3,6 +3,7 @@ package kr.hs.dsm.devlib.domain.question.presentation.dto.response
 import java.time.LocalDateTime
 
 data class QueryQuestionInfoResponse(
+    val id: Long,
     val title: String,
     val content: String,
     val author: String,

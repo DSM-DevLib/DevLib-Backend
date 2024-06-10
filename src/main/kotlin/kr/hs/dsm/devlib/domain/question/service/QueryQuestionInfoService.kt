@@ -32,6 +32,7 @@ class QueryQuestionInfoService(
         }
 
         return QueryQuestionInfoResponse(
+            id = question.id,
             title = question.title,
             content = question.content,
             author = question.user.accountId,
