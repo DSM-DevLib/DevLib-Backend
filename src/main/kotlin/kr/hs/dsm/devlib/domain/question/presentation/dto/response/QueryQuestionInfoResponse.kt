@@ -16,5 +16,7 @@ data class ReplyDTO(
     val likeCount: Int,
     val content: String,
     val bookId: Long,
-    val mine: Boolean
+    val mine: Boolean,
+    val imageUrl: String,
+    val liked: Boolean
 )
