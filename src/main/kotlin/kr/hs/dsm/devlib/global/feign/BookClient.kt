@@ -21,7 +21,7 @@ class FeignBooksResponse(
             name = it.title,
             author = it.author,
             cover = it.image,
-            description = it.description,
+            description = it.description.take(950),
             link = it.link,
             discount = it.discount.toInt()
         )
