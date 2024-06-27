@@ -1,5 +1,5 @@
 config:
-  name: devlibtesttest
+  name: devlibtesttesttest
   service_type: be
   port: 8080
   domain:
